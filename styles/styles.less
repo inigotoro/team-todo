@@ -1,0 +1,166 @@
+@import './mixins.less';
+
+@background-grey: #f3effe;
+@white: #fff;
+@purple: #440dd6;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+}
+
+main {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.todo__header {
+    .order-flex-alignSelf(0, 0 0 300px, auto);
+    position: sticky;
+    top: 0;
+}
+
+.todo__owner {
+    padding: 10px;
+
+    & > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+} 
+
+.todo__avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.todo__user-name {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.todo__list-details {
+    .order-flex-alignSelf(0, 0 1 100%, auto);
+    margin-left: 5px;
+}
+
+.todo__lists-item {
+    display: block;
+    padding: 15px 15px 15px 40px;
+    position: relative;
+    text-decoration: none;
+
+    &:before {
+        content: "";
+        background: url('../media/icons/list-24.png') no-repeat;
+        background-size: contain;
+        height: 16px;
+        left: 15px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+    }
+
+    &--selected {
+        background-color: @background-grey;
+        font-weight: 600;
+    }
+}
+
+.todo__hero {
+    background: url(../media/backgrounds/Old-Man-of-Storr.jpg) no-repeat center;
+    background-size: cover;
+    color: @white;
+    line-height: 40px;
+    padding: 65px 30px 30px 30px;
+}
+
+.todo__list-group {
+    list-style: none;
+}
+
+.todo__list:hover {
+    background-color: @background-grey;
+
+    & .todo__button--remove {
+        display: inline-block;    
+    }
+}
+
+.todo__list-label {
+    cursor: pointer;
+    display: inline-block;
+    padding: 20px 0 20px 20px;
+    vertical-align: middle;
+    width: calc(100% - 55px);
+
+    &--checked {
+        text-decoration: line-through;
+    }
+}
+
+.todo__list-checkbox {
+    margin-right: 5px;
+}
+
+.todo__message {
+    padding: 5px;
+    font-size: 16px;
+    margin: 20px;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
+}
+
+.todo__button--remove {
+    background: url('../media/icons/trashcan-24.png') no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    display: none;
+    height: 20px;
+    vertical-align: middle;
+    width: 20px;
+}
+
+.todo__add-item{
+    color: @purple;
+    display: block;
+    padding: 20px;
+
+    &:before {
+        background-color: #440dd6;
+        border-radius: 50%;
+        color: #fff;
+        content: '+';
+        display: inline-block;
+        font-size: 22px;
+        margin-right: 10px;
+        text-align: center;
+        width: 25px;
+    }
+
+    &--hidden {
+        display: none;
+    }
+}

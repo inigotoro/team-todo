@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Inigo Toro's implementation of Team To-Do List">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/styles.less">
+    <title>Team To-Do List</title>
+</head>
+
+<body>
+    <main>
+        <header class="todo__header">
+            <div class="todo__owner">
+                <img class="todo__avatar" src="./media/avatars/InigoToro.png" alt="I'm a Jedi!">
+                <h1 class="todo__user-name">Inigo Toro</h1>
+            </div>
+            <nav>
+                <a class="todo__lists-item todo__lists-item--selected" href="#">Team To-Do List</a>
+            </nav>
+        </header>
+        <section class="todo__list-details">
+            <header class="todo__hero">
+                <h2>Team To-Do List</h2>
+                <time datetime="2017-12-12">Tue 12 December</time>
+            </header>
+            <ul class="todo__list-group">
+                <li class="todo__list">
+                    <label class="todo__list-label">
+                        <input class="todo__list-checkbox" type="checkbox">Shortlist features for MVP
+                    </label>
+                    <span class="todo__button--remove"></span>
+                </li>
+                <li class="todo__list">
+                    <label class="todo__list-label">
+                        <input class="todo__list-checkbox" type="checkbox">Launch PPC campaign with new creative
+                    </label>
+                    <span class="todo__button--remove"></span>
+                </li>
+                <li class="todo__list">
+                    <label class="todo__list-label">         
+                        <input class="todo__list-checkbox" type="checkbox">Define audience breakdown with new data
+                    </label>
+                    <span class="todo__button--remove"></span>
+                </li>
+                <li class="todo__list">
+                    <label class="todo__list-label">
+                        <input class="todo__list-checkbox" type="checkbox">Launch demo page for SEO analysis
+                    </label>
+                    <span class="todo__button--remove"></span>
+                </li>
+            </ul>
+            <span class="todo__add-item">
+                Add a to-do
+            </span>
+        </section>
+    </main>
+    <script defer src="./js/index.js"></script>
+</body>
+
+</html>
