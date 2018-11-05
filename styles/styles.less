@@ -150,6 +150,10 @@ main {
     display: block;
     padding: 20px 5px;
 
+    &:hover:before {
+        .transform(rotate(180deg));
+    }
+
     &:before {
         background-color: #440dd6;
         border-radius: 50%;
@@ -159,7 +163,8 @@ main {
         font-size: 22px;
         margin-right: 10px;
         text-align: center;
-        width: 25px;
+        width: 26px;
+        transition-duration: .3s;
     }
 
     &--hidden {
@@ -252,6 +257,13 @@ main {
     transform:scale(1, 1);
   }
 }
-.hidden-xs-up {
-    display: none!important;
+
+@media only screen and (max-width: 768px) {
+    main {
+        display: block;
+    }
+
+    .todo__header nav {
+        display: none;
+    }
 }
