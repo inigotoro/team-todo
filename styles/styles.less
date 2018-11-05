@@ -101,24 +101,25 @@ main {
     list-style: none;
 }
 
-.todo__list:hover {
-    background-color: @background-grey;
+.todo__list{
+    padding-left: 5px;
+        &:hover {
+        background-color: @background-grey;
 
-    & .todo__button--remove {
-        display: inline-block;    
+        & .todo__button--remove {
+            display: inline-block;   
+            margin-left: 5px; 
+        }
     }
 }
 
 .todo__list-label {
     cursor: pointer;
     display: inline-block;
-    padding: 20px 0 20px 20px;
+    padding: 20px 0 20px 5px;
     vertical-align: middle;
-    width: calc(100% - 55px);
-
-    &--checked {
-        text-decoration: line-through;
-    }
+    width: calc(100% - 65px);
+    position: relative;
 }
 
 .todo__list-checkbox {
@@ -128,7 +129,7 @@ main {
 .todo__message {
     padding: 5px;
     font-size: 16px;
-    margin: 20px;
+    margin: 20px 5px;
     width: calc(100% - 40px);
     box-sizing: border-box;
 }
@@ -145,13 +146,14 @@ main {
 
 .todo__add-item{
     color: @purple;
+    cursor: pointer;
     display: block;
-    padding: 20px;
+    padding: 20px 5px;
 
     &:before {
         background-color: #440dd6;
         border-radius: 50%;
-        color: #fff;
+        color: @white;
         content: '+';
         display: inline-block;
         font-size: 22px;
@@ -163,4 +165,93 @@ main {
     &--hidden {
         display: none;
     }
+}
+
+
+.todo__fake-checkbox {
+    cursor:pointer;
+    border:1px solid #C8CCD4;
+    border-radius:3px;
+    display: inline-block;
+    height:17px;
+    margin-right: 5px;
+    position: relative;
+    transition: background .1s ease;
+    vertical-align:middle;
+    width:17px;
+
+    &:after{
+        border-bottom:2px solid @white;
+        border-right:2px solid @white;
+        content:'';
+        left:5px;
+        width:5px;
+        height:11px;
+        opacity:0;
+        transform:rotate(45deg) scale(0);
+        position:absolute;
+        transition: all .3s ease;
+        transition-delay:.15s;
+    }
+}
+
+.todo__list-checkbox {
+    display: none;
+
+    &:checked ~ .todo__fake-checkbox {
+        border-color:transparent;
+        background:#6871F1;
+        animation:jelly .6s ease;
+        &:after {
+          opacity:1;
+          transform:rotate(45deg) scale(1);
+        }
+    }
+
+    &:checked ~ .todo__list-label:after {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: black;
+        animation-name: strike;
+        animation-duration: .3s;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards; 
+    }
+}
+  
+@keyframes strike{
+    0%   { width : 0; }
+    100% { width: 100%; }
+  }
+
+@keyframes jelly{
+  from {
+    transform:scale(1, 1);
+  }
+  30% {
+    transform:scale(1.25, 0.75);
+  }
+  40% {
+    transform:scale(0.75, 1.25);
+  }
+  50% {
+    transform:scale(1.15, 0.85);
+  }
+  65% {
+    transform:scale(.95, 1.05);
+  }
+  75% {
+    transform:scale(1.05, .95);
+  }
+  to {
+    transform:scale(1, 1);
+  }
+}
+.hidden-xs-up {
+    display: none!important;
 }

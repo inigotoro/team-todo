@@ -4,6 +4,7 @@ import constants from './constants';
     class Todo {
         constructor() {
             this.addBindings();
+            this.counter = 5;
         }
 
         addBindings() {
@@ -16,22 +17,8 @@ import constants from './constants';
         }
 
         bindIndividualListItem(li) {
-            const checkbox = li.querySelector(constants.selectors.CHECKBOX_CLASS);
-            checkbox.addEventListener('click', this.checkboxClick);
-
             const remove = li.querySelector(constants.selectors.BUTTON_REMOVE_CLASS);
             remove.addEventListener('click', this.removeSingleElement);
-
-            return this;
-        }
-
-        checkboxClick(event) {
-            const { checked } = event.target; 
-            const label =  event.target.closest('label');
-            const action = checked ? 'add' : 'remove';
-            if (label) {
-                label.classList[action](constants.selectors.CHECKED_LABEL);
-            }
 
             return this;
         }
@@ -75,7 +62,10 @@ import constants from './constants';
                     if (!value) {
                         alert('Please add a value first or press ESC to cancel');
                     } else {            
-                        liWrapper.innerHTML = constants.templates.NEW_ITEM.replace('##TEXT##', pressedKey.target.value);
+                        liWrapper.innerHTML = constants.templates.NEW_ITEM
+                            .replace('##TEXT##', pressedKey.target.value)
+                            .replace(/##ID##/g, this.counter);
+                        this.counter++;
                         liWrapper.classList.add(constants.selectors.LIST_ITEM);
                         this.bindIndividualListItem(liWrapper);
                         ulWrapper.insertAdjacentElement('beforeend', liWrapper);
