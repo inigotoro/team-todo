@@ -4,8 +4,8 @@
     "alt": "I'm a Jedi!",
     "lists": [
         {
+            "id": 1513036800000,
             "title": "Team To-Do List",
-            "created": "2017-12-12",
             "background": "Old-Man-of-Storr.jpg",
             "items": [
                 {

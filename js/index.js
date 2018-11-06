@@ -1,10 +1,26 @@
-import constants from './constants';    
+import constants from './constants';   
+const staticData = require('./store.json');
+import * as domCreation from './domCreation';
 
 (() => {
     class Todo {
         constructor() {
-            this.addBindings();
-            this.counter = 5;
+            this.loadData()
+                .addBindings();
+        }
+
+        loadData() {
+            this.data = staticData;
+            const { owner, avatar, alt, lists = [] } = this.data;
+            
+            domCreation.loadAvatar(avatar, alt);
+
+            document.querySelector(constants.selectors.USER_NAME_CLASS).textContent = owner;
+
+            domCreation.loadFullList(lists);
+            domCreation.loadListData(lists[0]);
+
+            return this;
         }
 
         addBindings() {
@@ -13,6 +29,10 @@ import constants from './constants';
 
             const addItem = document.querySelector(constants.selectors.BUTTON_ADD_ITEM_CLASS);
             addItem.addEventListener('click', this.addItemToList.bind(this));
+
+            const toggleHamburguer = document.querySelector(constants.selectors.HAMBURGUER_ICON_CLASS);
+            toggleHamburguer.addEventListener('click', this.toggleHamburguerMenu.bind(this));
+
             return this;
         }
 
@@ -54,6 +74,13 @@ import constants from './constants';
             return this;
         }
 
+        toggleHamburguerMenu() {
+            const navigation = document.querySelector(constants.selectors.NAVIGATION_CLASS);
+            navigation.classList.toggle(constants.selectors.NAVIGATION_OPEN);
+
+            return this;
+        }
+
         inputKeyUp(ulWrapper, pressedKey) {
             const liWrapper = pressedKey.target.closest('li');
             switch(pressedKey.key) {
@@ -61,11 +88,11 @@ import constants from './constants';
                     const { value } = pressedKey.target;
                     if (!value) {
                         alert('Please add a value first or press ESC to cancel');
-                    } else {            
+                    } else {       
+                        const timeID = Date.now();     
                         liWrapper.innerHTML = constants.templates.NEW_ITEM
                             .replace('##TEXT##', pressedKey.target.value)
-                            .replace(/##ID##/g, this.counter);
-                        this.counter++;
+                            .replace(/##ID##/g, timeID);
                         liWrapper.classList.add(constants.selectors.LIST_ITEM);
                         this.bindIndividualListItem(liWrapper);
                         ulWrapper.insertAdjacentElement('beforeend', liWrapper);
