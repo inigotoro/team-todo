@@ -1,7 +1,7 @@
 # team-todo
 Team todo in vanilla js
 
-The aim of this project is to reproduce the following design vith vanilla JS:
+The aim of this project is to reproduce the following design:
 ![Prototype design](https://raw.githubusercontent.com/inigotoro/team-todo/master/team-todo-prototype.PNG)
 
 having in mind the following *User Stories*:
