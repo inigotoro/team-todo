@@ -1,4 +1,5 @@
 import constants from './constants';
+import { sanitizeHTML, processTimeInfo } from './utils';
 const avatars = require('../media/avatars/*.png');
 const backgrounds = require('../media/backgrounds/*.jpg');
 
@@ -27,23 +28,12 @@ export function addIndividualList(nav, { id = Date.now(), title }, isSelected) {
     nav.insertAdjacentElement('beforeend', a);
 }
 
-function processTimeInfo(time) {
-    const theDate = new Date(time);
-    const inverted = theDate.toISOString().slice(0, 10);
-    const fullName = theDate.toLocaleString('en-gb', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'long',
-    });
-    return { inverted, fullName };
-}
-
 export function loadListData(listData = {}) {
     const {
         id = Date.now(), title = 'No title specified', background = backgrounds['default'], items = []
     } = listData;
 
-    const hero = document.querySelector('.todo__hero');
+    const hero = document.querySelector(constants.selectors.HERO_CLASS);
     const h2 = hero.querySelector('h2');
     const time = hero.querySelector('time');
     const processedTime = processTimeInfo(id);
@@ -53,17 +43,37 @@ export function loadListData(listData = {}) {
     time.datetime = processedTime.inverted;
     time.textContent = processedTime.fullName;
 
-    const listGroup = document.querySelector('.todo__list-group');
-    let processedHtml = '';
+    const listGroup = document.querySelector(constants.selectors.LIST_GROUP_CLASS);
+    listGroup.innerHTML = '';
+    const holder = document.createDocumentFragment();
     items.forEach((item, index) => {
-        const checkedStatus = Object.is(item.status, 'done') ? ' checked' : '';
-        processedHtml += `
-        <li class="todo__list">
-            <input class="todo__list-checkbox" id="licbx-${index}" type="checkbox"${checkedStatus}>
-            <label class="todo__fake-checkbox" for="licbx-${index}"></label><label class="todo__list-label" for="licbx-${index}">${item.title}</label>
-            <span class="todo__button--remove"></span>
-        </li>
-        `;
+        this.addIndividualItem(holder, item, index);
     });
-    listGroup.insertAdjacentHTML('beforeend', processedHtml);
+    listGroup.appendChild(holder);
+}
+
+export function addIndividualItem(parent, item, index = Date.now(), callback) {
+    const checkedStatus = Object.is(item.status, 'done') ? ' checked' : '';
+    const newLi = document.createElement('li');
+    newLi.classList.add(constants.selectors.LIST_ITEM);
+    newLi.innerHTML = `<input class="todo__list-checkbox" id="licbx-${index}" type="checkbox"${checkedStatus}>
+    <label class="todo__fake-checkbox" for="licbx-${index}"></label><label class="todo__list-label" for="licbx-${index}">${sanitizeHTML(item.title)}</label>
+    <span class="todo__button--remove"></span>`;
+    if (callback) {
+        callback(newLi);
+    }
+    parent.appendChild(newLi);
+}
+
+export function addItemInput(parent, callback) {
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.classList.add(constants.selectors.MESSAGE);
+    newInput.addEventListener('keyup', callback);
+
+    const newLi = document.createElement('li');
+    newLi.appendChild(newInput);
+    parent.insertAdjacentElement('beforeend', newLi);
+
+    newInput.focus();
 }

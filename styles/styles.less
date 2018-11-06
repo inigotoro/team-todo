@@ -1,8 +1,10 @@
 @import './mixins.less';
+@import './animations.less';
 
 @background-grey: #f3effe;
 @white: #fff;
 @purple: #440dd6;
+@green: #67c068;
 
 * {
     margin: 0;
@@ -10,6 +12,7 @@
 }
 
 body {
+    direction: ltr;
     font-family: 'Roboto', sans-serif;
     height: 100vh;
 }
@@ -39,6 +42,7 @@ main {
     .order-flex-alignSelf(0, 0 0 300px, auto);
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
 .todo__owner {
@@ -111,7 +115,8 @@ main {
 
         & .todo__button--remove {
             display: inline-block;   
-            margin-left: 5px; 
+            margin-left: 5px;
+            animation: jelly .5s ease;
         }
     }
 }
@@ -158,7 +163,7 @@ main {
     }
 
     &:before {
-        background-color: #440dd6;
+        background-color: @purple;
         border-radius: 50%;
         color: @white;
         content: '+';
@@ -208,7 +213,7 @@ main {
 
     &:checked ~ .todo__fake-checkbox {
         border-color:transparent;
-        background:#6871F1;
+        background: @green;
         animation:jelly .6s ease;
         &:after {
           opacity:1;
@@ -230,35 +235,6 @@ main {
         animation-iteration-count: 1;
         animation-fill-mode: forwards; 
     }
-}
-  
-@keyframes strike{
-    0%   { width : 0; }
-    100% { width: 100%; }
-  }
-
-@keyframes jelly{
-  from {
-    transform:scale(1, 1);
-  }
-  30% {
-    transform:scale(1.25, 0.75);
-  }
-  40% {
-    transform:scale(0.75, 1.25);
-  }
-  50% {
-    transform:scale(1.15, 0.85);
-  }
-  65% {
-    transform:scale(.95, 1.05);
-  }
-  75% {
-    transform:scale(1.05, .95);
-  }
-  to {
-    transform:scale(1, 1);
-  }
 }
 
 .todo__hamburguer {
@@ -294,5 +270,9 @@ main {
 
     .todo__hero {
         padding: 20px;
+    }
+
+    .todo__header {
+        position: relative;
     }
 }

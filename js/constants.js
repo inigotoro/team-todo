@@ -1,4 +1,8 @@
 export default {
+    events: {
+        CLICK: 'click',
+        MOUSEUP: 'mouseup',
+    },
     keys: {
         ESCAPE: 'Escape',
         ENTER: 'Enter',
@@ -10,12 +14,18 @@ export default {
         BUTTON_REMOVE_CLASS: '.todo__button--remove',
         CHECKBOX_CLASS: '.todo__list-checkbox',
         HAMBURGUER_ICON_CLASS: '.todo__hamburguer',
+        HERO_CLASS: '.todo__hero',
         LIST_DETAILS_CLASS: '.todo__list-details',
         LIST_ITEM: 'todo__list',
         LIST_GROUP_CLASS: '.todo__list-group',
+        MESSAGE: 'todo__message',
         NAVIGATION_CLASS: '.todo__header-nav',
         NAVIGATION_OPEN: 'todo__header-nav--open',
         USER_NAME_CLASS: '.todo__user-name',
+    },
+    status: {
+        DONE: 'done',
+        UNDONE: 'undone',
     },
     templates: {
         NEW_ITEM: '<input class="todo__list-checkbox" id="licbx-##ID##" type="checkbox"><label class="todo__fake-checkbox" for="licbx-##ID##"></label><label class="todo__list-label" for="licbx-##ID##">##TEXT##</label><span class="todo__button--remove"></span>',
